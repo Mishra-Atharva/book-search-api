@@ -10,21 +10,21 @@ function getBooks(){
     // LOOKING FOR WHAT USER HAS SEARCHED FOR
     fetch("http://openlibrary.org/search.json?q="+document.getElementById("looking").value)
 
-    // CONVERTING RESPONSE FROM STRING TO DICTIONARY
+    // CONVERTING RESPONSE FROM STRING TO JSON
     .then(a => a.json())
 
     // GETTING THE FIRST 10 RESULT OF THE BOOK SEARCH AND GETTING INFORMATION SUCH AS THE AUTHOR'S NAME AND THE IAMGE OF THE COVER OF THE BOOK THEN UPDATING THE "display" DIV
     .then(response => {
         for(var i = 0; i <= 10; i++){
             if (i >= 1){
-                alert(i)
-                var new_div = document.createElement("div");
-                new_div.id = "display"+i;
-                var implement = document.getElementsByClassName("main_container");
-                implement.appendChild("new_div");
-                document.getElementById("display"+i).innerHTML += "<h2>" + response.docs[i].title + "</h2>" + response.docs[i].author_name[0] + "<br> <img src='https://covers.openlibrary.org/b/isbn/" + response.docs[i].isbn[0] + "-S.jpg'/> <br>";
+                alert(i) // alert the book number being processed
+                var book_holder = document.createElement("div");
+                book_holder.id = "display"+i; // giving the div an id
+                var implement = document.getElementsByClassName("main_container"); // getting the main container in variable implement
+                implement.appendChild("book_holder"); // appending the new div to the main container
+                document.getElementByClassName("display"+i).innerHTML += "<h2>" + response.docs[i].title + "</h2>" + response.docs[i].author_name[0] + "<br> <img src='https://covers.openlibrary.org/b/isbn/" + response.docs[i].isbn[0] + "-S.jpg'/> <br>";
             }
-            document.getElementById("display1").innerHTML += "<h2>" + response.docs[i].title + "</h2>" + response.docs[i].author_name[0] + "<br> <img src='https://covers.openlibrary.org/b/isbn/" + response.docs[i].isbn[0] + "-S.jpg'/> <br>";
+            //document.getElementById("display1").innerHTML += "<h2>" + response.docs[i].title + "</h2>" + response.docs[i].author_name[i] + "<br> <img src='https://covers.openlibrary.org/b/isbn/" + response.docs[i].isbn[0] + "-S.jpg'/> <br>";
         }
     });
 }
